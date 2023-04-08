@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            box-sizing: border-box;
+        }
+
+        .nav{
+            display:flex;
+            justify-content: space-around;
+            width:55vw;
+            background-color: rgb(0, 0, 0);
+            padding: 20px;
+            position: fixed;
+            left:22.5%;
+        }
+
+        .nav-link{
+            color:white;
+            text-decoration: none;
+        }
+
+        input{
+            border:1px solid white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .search{
+            width:9vw;
+            height:1.5vw;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width:55vw;
+            margin: auto;
+            color:white;
+            padding:12px;
+            padding-top: 100px;
+            background-color: rgb(27, 25, 25);
+            height:100vh;
+        }
+
+        p{
+            margin-bottom: 10px;
+            font-size: 2vw;
+        }
+
+        .logout{
+            background-color: rgb(27, 25, 25);
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+    <ul class="nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/feed"><i class="fa-solid fa-house" style="color: #ffffff;"></i>Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/profile"><i class="fa-solid fa-user" style="color: #ffffff;"></i>Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/notification"><i class="fa-solid fa-bell" style="color: #ffffff;"></i>Notification</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://localhost:3000/profile/edit"><i class="fa-solid fa-image" style="color: #ffffff;"></i>Create post</a>
+        </li>
+        <li class="nav-item">
+            <form action="/searchuser" method="get">
+                <input class="search" type="search" name="name">
+                <button type="submit">search</button>
+                </form>   
+        </li>
+        <li class="nav-item">
+            <form action="/logout" method="get">
+                <button class="logout" type="submit"><i class="fa-solid fa-right-from-bracket" style="color: #ffffff;"></i></button>
+                </form>   
+        </li>
+      </ul>
+      <div class="container">
+        <% if (data && data.notifications.length!==0) { %>
+            <% for (let i = 0; i < data.notifications.length; i++) { %>
+                <p><%= data.notifications[i] %></p>
+            <% } %>
+        <% } else { %>
+            <p>No notifications</p>
+        <% } %>
+    </div>
+</body>
+</html>

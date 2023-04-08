@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        *{
+            margin:0px;
+            padding:0px;
+            box-sizing: border-box;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width:55vw;
+            margin: auto;
+            color:white;
+            padding:12px;
+            background-color: rgb(27, 25, 25);
+            height:100vh;
+        }
+
+        img{
+            height:30vw;
+            margin: auto;
+        }
+
+        .like-button {
+            padding: 10px;
+            color:white;
+            font-size: 20px;
+            border: none;
+            cursor: pointer;
+            background-color: rgb(27, 25, 25);
+        }
+
+        .like-button:hover{
+            opacity:0.7;
+        }
+
+        input{
+            width:35vw;
+            height:3vw;
+            background-color: rgb(27, 25, 25);
+            font-size: 17px;
+            color:white;
+        }
+
+        .comments button{
+            background-color: white;
+            color: rgb(27, 25, 25);
+            border: none;
+            font-size: 17px;
+            border-radius: 5px;
+            padding:3px;
+            margin-bottom: 25px;
+        }
+
+        .name{
+            font-size: 25px;
+        }
+
+        .commentSection{
+            width:55vw;
+            margin: auto;
+            color:white;
+            background-color: rgb(27, 25, 25); 
+        }
+
+        .content{
+            padding:7px;
+            border-radius: 5px;
+            opacity:0.5; 
+            margin-bottom:15px;
+            font-size: 17px;
+        }
+
+        .amt{
+            position: relative;
+            bottom: 30px;
+            font-size: 25px;
+        }
+
+        input{
+            border:1px solid white;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .uname{
+            font-size: 23px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="image">
+            <img src=<%=post.image%> alt="">             
+        </div>  
+        <div>
+        <button class="like-button" id="likeBtn">
+            <span><%=post.likes.length%></span>
+            <% if (post.likes.includes(user)) { %>
+                <i class="fa-solid fa-thumbs-up"></i>
+              <% } else { %>
+                <i class="fa-regular fa-thumbs-up"></i>
+              <% } %>
+        </button>
+        <button class="like-button">
+            <span><%=post.comments.length%></span>
+            <i class="fa-regular fa-comment"></i>
+        </button>
+        </div>
+        <div class="name"><%=data.name%></div>
+    </div>
+    <div class="commentSection">
+        <div class="amt"><%=post.comments.length%> COMMENTS</div>
+        <div class="comments">
+            <form action="/comments/<%=data.username%>/<%=post._id%>"  method="post">
+                <input type="text" name="comments">
+                <button type="submit">Comment</button>
+            </form>
+        </div>
+    <% for(let i=0; i<post.comments.length; i++){%>
+        <div class="userComment">
+            <div class="uname"><%=post.comments[i].username%></div>
+            <div class="content"><%=post.comments[i].content%></div>
+        </div>
+    <%}
+    %>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.getElementById('likeBtn').addEventListener('click',like)
+        })
+
+        async function like(){
+            var likeBtn = document.getElementById('likeBtn');
+            var icon = likeBtn.querySelector(".fa-thumbs-up");
+                    
+            if (icon.classList.contains("fa-regular")) {
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid");
+            } else {
+                icon.classList.remove("fa-solid");
+                icon.classList.add("fa-regular");
+            }
+            await fetch('/posts/<%=data.username%>/<%=post._id%>',{method:'post'})
+        }
+    </script>
+</body>
+</html>

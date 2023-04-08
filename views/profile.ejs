@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+    
+        <div class="container">
+            <% if (user) {%>
+            <div class="image">
+             <img src=<%=user.profileImage%> alt="profile pic">
+            </div>
+         
+             <div class="about">
+                 <div class="info1">
+                     <div><%=user.name%></div>
+                      <button onclick="window.location.href='http://localhost:3000/profile/edit'">Edit profile</button>
+                 </div>
+                 <div class="info2">
+                     <span><%=user.posts.length%> posts</span>
+                     <span><%=user.followers.length%> followers</span>
+                     <span><%=user.following.length%> following</span>
+                 </div>
+                 <div class="info3">
+                     <div class="name"><%=data.name%></div>
+                     <div class="bio"><%=user.bio%></div>
+                 </div>
+                 
+             </div>
+
+             <%}else { %>
+                <script> window.location.href = 'http://localhost:3000/profile/edit'; </script>
+            <% } %>
+         </div>
+         <div class="galleryCont">
+            <% if (user.posts.length!==0) {%>
+
+            <% for (var i = 0; i < user.posts.length; i++) { %>
+              <div class="galleryImg">
+                <a href="http://localhost:3000/p/<%=user.username%>/<%=user.posts[i]._id%>"><img src=<%=user.posts[i].image%> alt="Image <%= i + 1 %>"></a>
+              </div>
+            <% } %> 
+            <%}else { %>
+                <p class="empty">No posts yet</p>
+              <% } %>
+
+          </div>
+        
+       
+    
+</body>
+</html>

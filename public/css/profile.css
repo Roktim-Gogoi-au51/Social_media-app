@@ -1,0 +1,121 @@
+*{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    width:55vw;
+    margin: 10px auto;
+    color:white;
+    padding:12px;
+    background-color: rgb(27, 25, 25);
+}
+
+.image{
+    height:9vw;
+    width:9vw;
+    border-radius: 100px;
+    background-color: aliceblue;
+}
+
+.image img {
+    height:9vw;
+    width:9vw;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+.about{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20em;
+    height:10em;
+}
+
+.info1{
+    display:flex;
+    font-size: 28px;
+}
+
+.info1 button{
+    margin:6px 25px;
+    background-color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    height:30px;
+    width:120px;
+    border:none;
+}
+
+.info2{
+    display:flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.info3 .name{ 
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+.info3 .bio{ 
+    font-weight: lighter;
+}
+
+.galleryCont{
+    width:55vw;
+    display:flex;
+    flex-wrap: wrap;
+    margin:auto;
+    background-color: rgb(27, 25, 25);
+    height:100vh;
+    overflow: hidden;
+}
+
+.galleryImg{
+    height:22rem;
+    overflow:hidden;
+    flex: 0 0 calc(33.33% - 0.4rem);
+    margin: 0.2rem;
+}
+
+.galleryImg img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.galleryImg img:hover {
+    cursor: pointer;
+    opacity:0.7;
+}
+
+.empty{
+    color:white;
+    position:absolute;
+    left: 45em;
+    top:25em;
+}
+
+.users{
+    display: flex;
+    align-items: center;
+}
+
+.userimg{
+    height:4vw;
+    width:4vw;
+    border-radius: 100px;
+    background-color: aliceblue;
+    border: 1px solid black;
+    overflow: hidden;
+}
+
+.userimg img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}

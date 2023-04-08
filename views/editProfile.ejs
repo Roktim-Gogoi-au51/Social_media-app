@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form style="border:1px solid black; padding:10px" action="/updateimage" method="post" enctype="multipart/form-data">
+        <h3>upload profile profile</h3>
+        <label for="profileImage">avatar</label>
+        <input type="file" name="profileImage">
+        <br><br>
+        <button type="submit">upload</button>
+    </form>
+    <br><br>
+    <form style="border:1px solid black; padding:10px" action="/editProfile" method="post">
+        <h3>profile info</h3>
+        <label for="name">username</label>
+        <input type="text" name="name">
+        <label for="bio">bio</label>
+        <textarea name="bio" id="" cols="30" rows="2"></textarea>
+        <br><br>
+        <button type="submit">submit</button>
+    </form>
+    <br><br>
+    <form style="border:1px solid black; padding:10px" action="/postimage" method="post" enctype="multipart/form-data">
+        <h3>add posts</h3>
+        <label for="image">add post</label>
+        <input type="file" name="image">
+        <label for="caption">Any thoughts</label>
+        <textarea name="caption" cols="30" rows="2"></textarea>
+        <br><br>
+        <button type="submit">upload</button>
+    </form>
+</body>
+</html>

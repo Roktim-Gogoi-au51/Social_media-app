@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+    margin:0px;
+    padding:0px;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    width:55vw;
+    margin: 10px auto;
+    color:white;
+    padding:12px;
+    background-color: rgb(27, 25, 25);
+}
+
+.image{
+    height:9vw;
+    width:9vw;
+    border-radius: 100px;
+    background-color: aliceblue;
+}
+
+.image img {
+    height:9vw;
+    width:9vw;
+    border-radius: 100%;
+    overflow: hidden;
+  }
+
+  .about{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20em;
+    height:10em;
+}
+
+.info1{
+    display:flex;
+    font-size: 28px;
+}
+
+.info1 button{
+    margin:6px 25px;
+    background-color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    height:30px;
+    width:120px;
+    border:none;
+}
+
+.info2{
+    display:flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.info3 .name{ 
+    font-size: 17px;
+    margin-bottom: 7px;
+}
+.info3 .bio{ 
+    font-weight: lighter;
+}
+
+.galleryCont{
+    width:55vw;
+    display:flex;
+    flex-wrap: wrap;
+    margin:auto;
+    background-color: rgb(27, 25, 25);
+    height:100vh;
+    overflow: hidden;
+}
+
+.galleryImg{
+    height:22rem;
+    overflow:hidden;
+    flex: 0 0 calc(33.33% - 0.4rem);
+    margin: 0.2rem;
+}
+
+.galleryImg img{
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.galleryImg img:hover{
+    cursor: pointer;
+    opacity:0.7;
+}
+
+.empty{
+    color:white;
+    position:absolute;
+    left: 45em;
+    top:25em;
+}
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="image">
+            <img src=<%=data.profileImage%> alt="profile pic">
+        </div>
+
+        <div class="about">
+            <div class="info1">
+                <div>
+                    <%=data.name%>
+                </div>
+                <button id="followBtn">
+                    <% if (data.followers.includes(user)) { %>
+                      Unfollow
+                    <% } else { %>
+                      Follow
+                    <% } %>
+                  </button>
+            </div>
+            <div class="info2">
+                <span>
+                    <%=data.posts.length%> posts
+                </span>
+                <span>
+                    <%=data.followers.length%> followers
+                </span>
+                <span>
+                    <%=data.following.length%> following
+                </span>
+            </div>
+            <div class="info3">
+                <div class="name">
+                    <%=data.fullName%>
+                </div>
+                <div class="bio">
+                    <%=data.bio%>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="galleryCont">
+        <% if (data.posts.length!==0) {%>
+
+            <% for (var i=0; i < data.posts.length; i++) { %>
+                <div class="galleryImg">
+                    <a href="http://localhost:3000/p/<%=data.username%>/<%=data.posts[i]._id%>"><img src=<%=data.posts[i].image%> alt="Image <%= i + 1 %>"></a>
+                </div>
+                <% } %>
+                    <%}else { %>
+                        <p class="empty">No posts yet</p>
+                        <% } %>
+
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            document.getElementById('followBtn').addEventListener('click',toggleFollow)
+        })
+
+        async function toggleFollow() {
+            const followBtn = document.getElementById('followBtn');
+            if(followBtn.innerText==='Follow'){
+                followBtn.innerText = 'Unfollow'
+            }
+            else{
+                followBtn.innerText = 'Follow'
+            }
+            await fetch('/follow/<%=data.username%>',{method:'post'})
+            
+        }
+
+      </script>
+
+</body>
+
+</html>
