@@ -18,7 +18,7 @@
              <div class="about">
                  <div class="info1">
                      <div><%=user.name%></div>
-                      <button onclick="window.location.href='http://localhost:3000/profile/edit'">Edit profile</button>
+                      <button onclick="window.location.href='https://socialmedia-app-production.up.railway.app/edit'">Edit profile</button>
                  </div>
                  <div class="info2">
                      <span><%=user.posts.length%> posts</span>
@@ -33,7 +33,7 @@
              </div>
 
              <%}else { %>
-                <script> window.location.href = 'http://localhost:3000/profile/edit'; </script>
+                <script> window.location.href = 'https://socialmedia-app-production.up.railway.app/profile/edit'; </script>
             <% } %>
          </div>
          <div class="galleryCont">
@@ -41,7 +41,7 @@
 
             <% for (var i = 0; i < user.posts.length; i++) { %>
               <div class="galleryImg">
-                <a href="http://localhost:3000/p/<%=user.username%>/<%=user.posts[i]._id%>"><img src=<%=user.posts[i].image%> alt="Image <%= i + 1 %>"></a>
+                <a href="https://socialmedia-app-production.up.railway.app/p/<%=user.username%>/<%=user.posts[i]._id%>"><img src=<%=user.posts[i].image%> alt="Image <%= i + 1 %>"></a>
               </div>
             <% } %> 
             <%}else { %>
