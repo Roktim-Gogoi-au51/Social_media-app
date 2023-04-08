@@ -11,6 +11,8 @@ const searchRoute = require("./routes/viewOthers")
 const postRoute = require("./routes/post")
 const feedRoute = require("./routes/feed")
 
+const secretKey = "secretKey";
+
 const app = express()
 
 app.set('view engine','ejs')
@@ -20,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true, multipart: true}))
 
 app.use(
     session({
-      secret: 'pleasedonottouchthissecretkey',
+      secret: secretKey,
       resave: false,
       saveUninitialized: false,
     })
@@ -47,6 +49,6 @@ app.use('/', searchRoute)
 app.use('/',postRoute)
 app.use('/',feedRoute)
 
-app.listen(3000,()=>{
-    console.log('connected succesfully to server')
-})
+app.listen(process.env.PORT || 9000, () => {
+    console.log("Server running at port: 9000");
+  });
