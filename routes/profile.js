@@ -84,15 +84,17 @@ router.post('/postimage', upload.single('image'), async (req, res) => {
     const post = userProfile.posts.find(p=>p.image===result.secure_url)
 
     const followers = userProfile.followers
-
-    for(let i=0;i<followers.length;i++){
+    if(followers.length!==0){
+      for(let i=0;i<followers.length;i++){
       
-      await profile.findOneAndUpdate(
-        {username:followers[i]},
-        {$push: {feed:{$each:[{username:userProfile.username,name:userProfile.name,post_id:post._id,content:result.secure_url,caption:req.body.caption}],$position:0}}},
-        {new: true}
-      )
+        await profile.findOneAndUpdate(
+          {username:followers[i]},
+          {$push: {feed:{$each:[{username:userProfile.username,name:userProfile.name,post_id:post._id,content:result.secure_url,caption:req.body.caption}],$position:0}}},
+          {new: true}
+        )
+      }
     }
+    
 
     res.send('success')
   } catch (error) {
