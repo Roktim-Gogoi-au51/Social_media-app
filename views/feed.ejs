@@ -175,67 +175,63 @@
                     <img src=<%=data.feed[i].content%> alt="">             
                 </div>  
                 <div>
-                <button class="like-button" id="likeBtn" onclick="like('<%=data.feed[i].username%>','<%=data.feed[i].post_id%>')">
-                    <span><%=data.feed[i].likes.length%></span>
-                    <% if (data.feed[i].likes.includes(user)) { %>
-                        <i class="fa-solid fa-thumbs-up"></i>
-                      <% } else { %>
-                        <i class="fa-regular fa-thumbs-up"></i>
-                      <% } %>
-                </button>
-                <button class="like-button" id="commentBtn">
-                    <span><%=data.feed[i].comments.length%></span>
-                    <i class="fa-regular fa-comment"></i>
-                </button>
-                </div>
-                <div class="name"><%=data.feed[i].name%></div>
-            </div>
-            <div class="commentSection" id="commentDisplay">
-                <div class="comments">
-                    <form action="/comments/<%=data.feed[i].username%>/<%=data.feed[i].post_id%>"  method="post">
-                        <input type="text" name="comments">
-                        <button type="submit">Comment</button>
-                    </form>
-                </div>
-                <% for(let i=0; i<data.feed[i].comments.length; i++){%>
-                    <div class="userComment">
-                        <div class="uname"><%=data.feed[i].comments[i].username%></div>
-                        <div class="content"><%=data.feed[i].comments[i].content%></div>
+                    <button class="like-button" id='likeBtn<%=i%>' onclick="like('<%=data.feed[i].username%>','<%=data.feed[i].post_id%>',this.id)">
+                        <span><%=data.feed[i].likes.length%></span>
+                        <% if (data.feed[i].likes.includes(user)) { %>
+                            <i class="fa-solid fa-thumbs-up"></i>
+                          <% } else { %>
+                            <i class="fa-regular fa-thumbs-up"></i>
+                          <% } %>
+                    </button>
+                    <button class="like-button" id="commentBtn<%=i%>" onclick="comment('commentDisplay<%=i%>')">
+                        <span><%=data.feed[i].comments.length%></span>
+                        <i class="fa-regular fa-comment"></i>
+                    </button>
                     </div>
-                <%}
-                %>
-                
-            </div>
-        <% } %> 
-        <%}else { %>
-            <p class="empty">Start following your friends to view their posts in your feed</p>
-          <% } %>
-    <script>
-            async function like(username,id){
-            var likeBtn = document.getElementById('likeBtn');
-            var icon = likeBtn.querySelector(".fa-thumbs-up");
+                    <div class="name"><%=data.feed[i].name%></div>
+                </div>
+                <div class="commentSection" id="commentDisplay<%=i%>">
+                    <div class="comments">
+                        <form action="/comments/<%=data.feed[i].username%>/<%=data.feed[i].post_id%>"  method="post">
+                            <input type="text" name="comments">
+                            <button type="submit">Comment</button>
+                        </form>
+                    </div>
+                    <% for(let j=0; j<data.feed[i].comments.length; j++){%>
+                        <div class="userComment">
+                            <div class="uname"><%=data.feed[i].comments[j].username%></div>
+                            <div class="content"><%=data.feed[i].comments[j].content%></div>
+                        </div>
+                    <%}
+                    %>
                     
-            if (icon.classList.contains("fa-regular")) {
-                icon.classList.remove("fa-regular");
-                icon.classList.add("fa-solid");
-            } else {
-                icon.classList.remove("fa-solid");
-                icon.classList.add("fa-regular");
+                </div>
+            <% } %> 
+            <%}else { %>
+                <p class="empty">Start following your friends to view their posts in your feed</p>
+              <% } %>
+        <script>
+                async function like(username,id,btnID){
+                var likeBtn = document.getElementById(btnID);
+                var icon = likeBtn.querySelector(".fa-thumbs-up");
+                        
+                if (icon.classList.contains("fa-regular")) {
+                    icon.classList.remove("fa-regular");
+                    icon.classList.add("fa-solid");
+                } else {
+                    icon.classList.remove("fa-solid");
+                    icon.classList.add("fa-regular");
+                }
+                await fetch(`/posts/${username}/${id}`,{method:'post'})
             }
-            await fetch(`/posts/${username}/${id}`,{method:'post'})
-        }
-        
-        document.addEventListener('DOMContentLoaded',()=>{
-            document.getElementById('commentBtn').addEventListener('click',comment)
-        })
-
-        function comment(){
-            var commentDisplay = document.getElementById('commentDisplay');
-                commentDisplay.style.display = 'block';
-
-        }
-
-    </script>
+            
+            function comment(commentDisplay){
+                var commentDisplay = document.getElementById(commentDisplay);
+                    commentDisplay.style.display = 'block';
+    
+            }
+    
+        </script>
     
 </body>
 </html>
